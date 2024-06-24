@@ -1,0 +1,25 @@
+{
+  "name": "swagger-api-docs",
+  "version": "1.0.0",
+  "description": "Swagger Local Docs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawnmcrowley/swagger-express.git"
+  },
+  "author": "Shawn M. Crowley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shawnmcrowley/swagger-express/issues"
+  },
+  "homepage": "https://github.com/shawnmcrowley/swagger-express#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
