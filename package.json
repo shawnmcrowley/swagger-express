@@ -1,25 +1,22 @@
 {
   "name": "swagger-api-docs",
-  "version": "1.0.0",
-  "description": "Swagger Local Docs",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Modern Express API with Swagger documentation and HTMX frontend",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run dev"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shawnmcrowley/swagger-express.git"
   },
   "author": "Shawn M. Crowley",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shawnmcrowley/swagger-express/issues"
-  },
-  "homepage": "https://github.com/shawnmcrowley/swagger-express#readme",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.19.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }
+
 }

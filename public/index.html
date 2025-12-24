@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express API Dashboard</title>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .card { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 1rem; }
+    .btn { background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-size: 1rem; margin: 0.5rem 0.5rem 0.5rem 0; transition: background 0.3s; }
+    .btn:hover { background: #5568d3; }
+    .btn-secondary { background: #764ba2; }
+    .btn-secondary:hover { background: #653a8a; }
+    #response { background: #f7f7f7; padding: 1rem; border-radius: 6px; margin-top: 1rem; min-height: 100px; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+    .loading { opacity: 0.6; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .endpoint { background: #f0f0f0; padding: 1rem; border-radius: 6px; border-left: 4px solid #667eea; }
+    .endpoint h3 { font-size: 1rem; margin-bottom: 0.5rem; color: #667eea; }
+    .endpoint p { font-size: 0.9rem; color: #666; }
+    .links { margin-top: 1rem; }
+    .links a { color: #667eea; text-decoration: none; margin-right: 1rem; font-weight: 500; }
+    .links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>🚀 Express API Dashboard</h1>
+      <p>Modern Node.js/Express API with Swagger documentation and HTMX integration</p>
+      <div class="links">
+        <a href="/api-docs" target="_blank">📚 API Documentation</a>
+        <a href="https://github.com/shawnmcrowley/swagger-express" target="_blank">💻 GitHub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎯 Try API Endpoints</h2>
+      <div>
+        <button class="btn" hx-get="/api/sample" hx-target="#response" hx-indicator=".htmx-indicator">Get Sample</button>
+        <button class="btn" hx-get="/api/users" hx-target="#response" hx-indicator=".htmx-indicator">Get Users</button>
+        <button class="btn btn-secondary" hx-get="/api/users/1" hx-target="#response" hx-indicator=".htmx-indicator">Get User #1</button>
+        <button class="btn btn-secondary" hx-get="/api/users/2" hx-target="#response" hx-indicator=".htmx-indicator">Get User #2</button>
+      </div>
+      <div id="response">Click a button to fetch data from the API...</div>
+      <div class="htmx-indicator loading" style="display:none;">Loading...</div>
+    </div>
+
+    <div class="card">
+      <h2>📡 Available Endpoints</h2>
+      <div class="grid">
+        <div class="endpoint">
+          <h3>GET /api/sample</h3>
+          <p>Returns a sample message</p>
+        </div>
+        <div class="endpoint">
+          <h3>GET /api/users</h3>
+          <p>Returns list of all users</p>
+        </div>
+        <div class="endpoint">
+          <h3>GET /api/users/:id</h3>
+          <p>Returns specific user by ID</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.body.addEventListener('htmx:beforeRequest', () => {
+      document.querySelector('.htmx-indicator').style.display = 'block';
+    });
+    document.body.addEventListener('htmx:afterRequest', (e) => {
+      document.querySelector('.htmx-indicator').style.display = 'none';
+      const response = document.getElementById('response');
+      try {
+        const json = JSON.parse(e.detail.xhr.responseText);
+        response.textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        response.textContent = e.detail.xhr.responseText;
+      }
+    });
+  </script>
+</body>
+</html>
